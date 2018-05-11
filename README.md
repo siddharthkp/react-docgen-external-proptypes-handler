@@ -30,7 +30,7 @@ Component code:
 import React from 'react'
 import PropTypes from 'prop-types'
 
-/* importing variable iconNames from .js file*/
+/* importing variable iconNames from .js file (js, jsx are supported, json is not) */
 import iconNames from './icon-names.js'
 
 const Icon = props => {
