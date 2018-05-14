@@ -12,6 +12,39 @@ All credit goes to [Chandrasekhar Pasupuleti](https://github.com/pasupuletics) f
 
 &nbsp;
 
+#### problem
+
+`react-docgen` doens't allow you to use variables from other files to use in `propTypes`
+
+Example:
+
+```js
+import iconNames from './icon-names.js'
+
+Icon.propTypes = {
+  /** Icon name */
+  name: PropTypes.oneOf(iconNames).isRequired
+}
+```
+
+This doesn't work because it's parsed as a string and not an array
+
+```json
+"props": {
+  "name": {
+    "type": {
+      "name": "enum",
+      "computed": true,
+      "value": "iconNames"
+    },
+    "required": true,
+    "description": "Icon name"
+  },
+}
+```
+
+&nbsp;
+
 #### install
 
 ```
