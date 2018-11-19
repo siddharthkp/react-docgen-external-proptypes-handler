@@ -108,9 +108,9 @@ let metadata = files.map(path => {
 })
 ```
 
-##### Usage with styleguidist
+##### Usage with react-styleguidist
 
-Enable `handlers` config in `styleguidist.config.js`
+Enable `handlers` property in styleguidist config(`styleguidist.config.js`)
 ```js
 module.export = {
   handlers: componentPath =>
