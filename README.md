@@ -88,7 +88,7 @@ export default iconNames
 
 &nbsp;
 
-#### usage
+#### Usage
 
 ```js
 const docgen = require('react-docgen')
@@ -106,6 +106,19 @@ let metadata = files.map(path => {
 
   return data
 })
+```
+
+##### Usage with react-styleguidist
+
+Enable `handlers` property in styleguidist config(`styleguidist.config.js`)
+```js
+module.export = {
+  handlers: componentPath =>
+    require('react-docgen').defaultHandlers.concat(
+        require('react-docgen-external-proptypes-handler')(componentPath),
+        require('react-docgen-displayname-handler').createDisplayNameHandler(componentPath)
+      )
+}
 ```
 
 &nbsp;
