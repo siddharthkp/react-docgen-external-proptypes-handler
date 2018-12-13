@@ -1,20 +1,13 @@
-<p align="center">
-  <br><br>
-  <b>Evaluate variables from external files for react-docgen</b>
-  <br><br>
-</p>
-
-&nbsp;
+# react-docgen-external-proptypes-handler
+ > Evaluate variables from external files for react-docgen</b>
 
 #### credit
 
 All credit goes to [Chandrasekhar Pasupuleti](https://github.com/pasupuletics) for sharing this
 
-&nbsp;
-
 #### problem
 
-`react-docgen` doens't allow you to use variables from other files to use in `propTypes`
+`react-docgen` doesn't allow you to use variables from other files to use in `propTypes`
 
 Example:
 
@@ -43,15 +36,11 @@ This doesn't work because it's parsed as a string and not an array
 }
 ```
 
-&nbsp;
-
 #### install
 
 ```
 npm react-docgen-external-proptypes-handler --save-dev
 ```
-
-&nbsp;
 
 #### convention
 
@@ -126,8 +115,6 @@ module.export = {
 #### like it?
 
 :star: this repo
-
-&nbsp;
 
 #### license
 
