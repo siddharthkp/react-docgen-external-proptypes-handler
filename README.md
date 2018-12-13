@@ -3,7 +3,7 @@
 
 #### credit
 
-All credit goes to [Chandrasekhar Pasupuleti](https://github.com/pasupuletics) for sharing this
+All credit goes to [Chandrasekhar Pasupuleti](https://github.com/pasupuletics) for sharing the implementation and [Daniel Tschinder](https://github.com/danez) for maintaining it.
 
 #### problem
 
