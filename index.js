@@ -3,11 +3,16 @@ const fs = require('fs')
 const recast = require('recast')
 
 /**
- * Re-using few private methods of react-docgen to avoid code dupilcation
+ * Re-using few private methods of react-docgen to avoid code duplication
  */
-const isRequiredPropType = require(`react-docgen/dist/utils/isRequiredPropType`).default
-const setPropDescription = require(`react-docgen/dist/utils/setPropDescription`).default
-const babylon = require(`react-docgen/dist/babylon`).default
+const isRequiredPropType = require('react-docgen/dist/utils/isRequiredPropType').default
+const setPropDescription = require('react-docgen/dist/utils/setPropDescription').default
+let babylon
+try {
+  babylon = require('react-docgen/dist/babelParser').default
+} catch (e) {
+  babylon = require('react-docgen/dist/babylon').default
+}
 
 const utils = require('react-docgen').utils
 const types = recast.types.namedTypes
@@ -27,7 +32,7 @@ function isPropTypesExpression(path) {
 /**
  * Amends the documentation object with propTypes information.
  * @method amendPropTypes
- * @param  {Object} documentation  documentation obejct
+ * @param  {Object} documentation  documentation object
  * @param  {Object} path  node path reference of propTypes property
  */
 function amendPropTypes(documentation, path) {
@@ -205,7 +210,7 @@ function getExports(ast) {
       if (node.declaration.type === types.Identifier.name) {
         exports.push(node.declaration.name)
       }
-      /* Commenting it for now, this might needed for further enchancements.
+      /* Commenting it for now, this might needed for further enhancements.
       else if (nodeType === types.Literal.name) {
         varDeclarators.push(node.init.value);
       } else if (nodeType === types.ArrayExpression.name) {
@@ -250,19 +255,19 @@ function getImports(ast) {
 /**
  * Method to resolve all dependent values(computed values, which are from external files).
  *
- * @method resolveImportedDepedencies
+ * @method resolveImportedDependencies
  * @param  {Object} ast Root AST node of the component
  * @param  {Object} srcFilePath Absolute path of a dependent file
  * @return {Object} Holds export identifier as `key` and respective AST node path as value
  */
-function resolveImportedDepedencies(ast, srcFilePath) {
+function resolveImportedDependencies(ast, srcFilePath) {
   const filteredItems = createObject(null)
   const importSpecifiers = getImports(ast)
 
-  let identifiers, reolvedNodes
+  let identifiers, resolvedNodes
 
   if (importSpecifiers && Object.keys(importSpecifiers).length) {
-    reolvedNodes = resolveDependencies(importSpecifiers, srcFilePath)
+    resolvedNodes = resolveDependencies(importSpecifiers, srcFilePath)
   }
 
   const exportSpecifiers = getExports(ast)
@@ -271,8 +276,8 @@ function resolveImportedDepedencies(ast, srcFilePath) {
     identifiers = getIdentifiers(ast)
   }
 
-  if (reolvedNodes) {
-    Object.assign(identifiers, ...reolvedNodes)
+  if (resolvedNodes) {
+    Object.assign(identifiers, ...resolvedNodes)
   }
 
   for (const identifier in identifiers) {
@@ -285,7 +290,7 @@ function resolveImportedDepedencies(ast, srcFilePath) {
 }
 
 /**
- * Method to resolve all the external depedencies of the component propTypes
+ * Method to resolve all the external dependencies of the component propTypes
  *
  * @method resolveDependencies
  * @param  {Array} filePaths List of files to resolve
@@ -307,7 +312,7 @@ function resolveDependencies(filePaths, componentPath) {
 
       if (src) {
         const ast = getAST(src)
-        importedNodes.push(resolveImportedDepedencies(ast, srcPath))
+        importedNodes.push(resolveImportedDependencies(ast, srcPath))
       }
     }
   }
@@ -319,7 +324,7 @@ function resolveDependencies(filePaths, componentPath) {
  * Method to filter computed props(which are declared out side of the component and used in propTypes object).
  *
  * @method filterSpecifiers
- * @param  {Object} specifiers  List which holds all the values of external depedencies
+ * @param  {Object} specifiers  List which holds all the values of external dependencies
  * @return {Object} computedPropNames  List which holds all the computed values from `propTypes` property
  */
 function filterSpecifiers(specifiers, computedPropNames) {
@@ -344,7 +349,7 @@ function filterSpecifiers(specifiers, computedPropNames) {
  * @method getComputedPropValuesFromDoc
  * @param  {Object} doc  react-docgen document object
  * @return {Object/Boolean} Object with computed property identifer as `key` and AST node path as `value`,
- *                          If documnet object have any computed properties else return false.
+ *                          If document object have any computed properties else return false.
  */
 
 function getComputedPropValuesFromDoc(doc) {
@@ -376,7 +381,7 @@ function getComputedPropValuesFromDoc(doc) {
  * @method amendDocs
  * @param  {Object} doc  react-docgen document object
  * @param  {Object} path  AST node path of component `propTypes`
- * @param  {Object} props  list of actula values of computed properties
+ * @param  {Object} props  list of actual values of computed properties
  */
 function amendDocs(doc, path, props) {
   const propsToPatch = path.get('properties')
@@ -402,7 +407,7 @@ function amendDocs(doc, path, props) {
 }
 
 /**
- * Initilizer of react-docgen custom handler.
+ * Initializer of react-docgen custom handler.
  *
  * @method createImportHandler
  * @param  {String} componentPath  Absolute path of the react component
