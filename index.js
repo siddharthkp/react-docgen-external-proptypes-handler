@@ -9,7 +9,8 @@ const isRequiredPropType = require('react-docgen/dist/utils/isRequiredPropType')
 const setPropDescription = require('react-docgen/dist/utils/setPropDescription').default
 let babylon
 try {
-  babylon = require('react-docgen/dist/babelParser').default
+  const buildParser = require('react-docgen/dist/babelParser').default
+  babylon = buildParser()
 } catch (e) {
   babylon = require('react-docgen/dist/babylon').default
 }
