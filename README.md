@@ -39,7 +39,7 @@ This doesn't work because it's parsed as a string and not an array
 #### install
 
 ```
-npm react-docgen-external-proptypes-handler --save-dev
+npm i react-docgen-external-proptypes-handler --save-dev
 ```
 
 #### convention
