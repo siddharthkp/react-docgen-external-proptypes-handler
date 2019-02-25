@@ -395,8 +395,28 @@ function amendDocs(doc, path, props) {
     }
   }
 
+  function updateWithDefaultValue(descriptor) {
+    if(descriptor.defaultValue && descriptor.defaultValue.computed) {
+      const ast = getAST(descriptor.defaultValue.value);
+      const { expression:node } = ast.program.body[0];
+      if(types.MemberExpression.name === "MemberExpression") {
+        const computedObj = props.filter((prop)=>!!prop[node.object.name])[0] || '';
+        if(!!computedObj) {
+          const computedValueObj = computedObj[node.object.name];
+          const defaultValue = computedValueObj[node.property.value].value;
+          if(defaultValue) {
+            descriptor.defaultValue.value = defaultValue;
+            descriptor.defaultValue.computed = false;
+          }
+        }
+      }
+    }
+  }
+
   propsToPatch.each(propertyPath => {
     const propDescriptor = doc.getPropDescriptor(utils.getPropertyName(propertyPath))
+
+    updateWithDefaultValue(propDescriptor)
 
     if (propDescriptor.type.name === 'enum' && propDescriptor.type.computed) {
       const oldVal = propDescriptor.type.value
