@@ -12,6 +12,10 @@ try {
   const buildParser = require('react-docgen/dist/babelParser').default
   babylon = buildParser()
 } catch (e) {
+  // Try babylon if requiring babelParser fails, but don't mask Babel config errors
+  if (e.message.indexOf('Cannot find module') === -1) {
+    throw e
+  }
   babylon = require('react-docgen/dist/babylon').default
 }
 
