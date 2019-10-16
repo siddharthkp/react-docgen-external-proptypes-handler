@@ -7,11 +7,28 @@
     "type": "git",
     "url": "git+https://github.com/siddharthkp/react-docgen-external-proptypes-handler.git"
   },
+  "engines": {
+    "node": ">= 6.2.0"
+  },
   "keywords": [],
   "author": "siddharthkp",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/siddharthkp/react-docgen-external-proptypes-handler/issues"
   },
-  "homepage": "https://github.com/siddharthkp/react-docgen-external-proptypes-handler#readme"
+  "homepage": "https://github.com/siddharthkp/react-docgen-external-proptypes-handler#readme",
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "react-docgen": "^4.1.1"
+  },
+  "dependencies": {
+    "recast": "^0.17.3"
+  },
+  "peerDependencies": {
+    "react-docgen": ">=3.0.0-0 <=5.0.0"
+  }
 }
