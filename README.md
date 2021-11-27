@@ -1,7 +1,7 @@
 # react-docgen-external-proptypes-handler
  > Evaluate variables from external files for react-docgen</b>
  
-**This handler does not work with react-docgen >= 5.0.0-beta.1 (yet). react-docgen as of this version will most probably include this functionality by default**
+**This handler does not work with react-docgen >= 6.0.0-alpha.0. react-docgen as of this version will most probably include this functionality by default**
 
 #### credit
 
